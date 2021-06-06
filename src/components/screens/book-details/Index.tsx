@@ -16,6 +16,7 @@ import {
 } from "@expo/vector-icons";
 import { Rating, AirbnbRating } from "react-native-ratings";
 import { SharedElement } from "react-navigation-shared-element";
+import { MotiView } from "moti";
 
 import { styles } from "./styles";
 import { globalStyles } from "../../../styles/globalStyles";
@@ -69,41 +70,75 @@ export const BookDetailsView = ({ book, goBack }: Props) => {
           <SharedElement id={`book.${book.ISBN}.author`}>
             <Text style={styles.author}>{author}</Text>
           </SharedElement>
-          <Rating
-            ratingCount={5}
-            imageSize={15}
-            // showRating
-            // onFinishRating={this.ratingCompleted}
-            style={{
-              alignItems: "flex-start",
-              marginTop: hp(20),
+          <MotiView
+            from={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{
+              type: "timing",
+              duration: 2000,
             }}
-          />
-          <Text style={styles.info}>{summary}</Text>
-        </View>
-        <View style={globalStyles.rowBetween}>
-          <TouchableOpacity style={[styles.actionBtn]}>
-            <MaterialIcons
-              name="preview"
-              size={20}
-              style={{ marginRight: wp(10) }}
+          >
+            <Rating
+              ratingCount={5}
+              imageSize={15}
+              // showRating
+              // onFinishRating={this.ratingCompleted}
+              style={{
+                alignItems: "flex-start",
+                marginTop: hp(20),
+              }}
             />
-            <Text style={styles.actionText}>Preview</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.actionBtn}>
-            <MaterialCommunityIcons
-              name="message-processing-outline"
-              size={18}
-              style={{ marginRight: wp(10) }}
-            />
-            <Text style={styles.actionText}>Reviews</Text>
-          </TouchableOpacity>
+          </MotiView>
+          <MotiView
+            from={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{
+              type: "timing",
+              duration: 2000,
+            }}
+          >
+            <Text style={styles.info}>{summary}</Text>
+          </MotiView>
         </View>
-        {/* <View style={styles.btnBox}> */}
-        <TouchableOpacity activeOpacity={0.7} style={styles.btn}>
-          <Text style={styles.btnText}>{`Buy now for $${price.value}`}</Text>
-        </TouchableOpacity>
-        {/* </View>  */}
+        <MotiView
+          from={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{
+            type: "timing",
+            duration: 2000,
+          }}
+        >
+          <View style={globalStyles.rowBetween}>
+            <TouchableOpacity style={[styles.actionBtn]}>
+              <MaterialIcons
+                name="preview"
+                size={20}
+                style={{ marginRight: wp(10) }}
+              />
+              <Text style={styles.actionText}>Preview</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.actionBtn}>
+              <MaterialCommunityIcons
+                name="message-processing-outline"
+                size={18}
+                style={{ marginRight: wp(10) }}
+              />
+              <Text style={styles.actionText}>Reviews</Text>
+            </TouchableOpacity>
+          </View>
+        </MotiView>
+        <MotiView
+          from={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{
+            type: "timing",
+            duration: 2000,
+          }}
+        >
+          <TouchableOpacity activeOpacity={0.7} style={styles.btn}>
+            <Text style={styles.btnText}>{`Buy now for $${price.value}`}</Text>
+          </TouchableOpacity>
+        </MotiView>
       </ScrollView>
     </SafeAreaView>
   );

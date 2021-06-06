@@ -26,7 +26,7 @@ const MainTabNavigator = () => {
           tabBarIcon: ({ focused, color }) => (
             <Feather
               name="home"
-              color={focused ? "lightblue" : "#000"}
+              color={focused ? "#000" : "lightblue"}
               size={20}
             />
           ),
@@ -38,7 +38,7 @@ const MainTabNavigator = () => {
           tabBarIcon: ({ focused, color }) => (
             <Fontisto
               name="bookmark"
-              color={focused ? "lightblue" : "#000"}
+              color={focused ? "#000" : "lightblue"}
               size={20}
             />
           ),
@@ -52,7 +52,7 @@ const MainTabNavigator = () => {
           tabBarIcon: ({ focused, color }) => (
             <AntDesign
               name="shoppingcart"
-              color={focused ? "lightblue" : "#000"}
+              color={focused ? "#000" : "lightblue"}
               size={20}
             />
           ),
@@ -66,7 +66,7 @@ const MainTabNavigator = () => {
           tabBarIcon: ({ focused, color }) => (
             <AntDesign
               name="setting"
-              color={focused ? "lightblue" : "#000"}
+              color={focused ? "#000" : "lightblue"}
               size={20}
             />
           ),
