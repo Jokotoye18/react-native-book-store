@@ -21,6 +21,7 @@ import { globalStyles } from "../../../styles/globalStyles";
 import { hp } from "../../../utils";
 import { LoadingIndicator } from "../../LoadingIndicator";
 import { useAuthProvider } from "../../../hooks/useAuthProvider";
+import { supportLocalAuth } from "../../../utils/supportedAuth";
 
 type Props = {};
 
@@ -28,6 +29,8 @@ export const LoginView = ({}: Props) => {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [secureEntry, setSecureEntry] = useState<boolean>(true);
   const [isBiometricSupported, setIsBiometricSupported] = useState(false);
+  const [supportedAuth, SetSupportedAuth] = useState<string[]>([]);
+  console.log(supportedAuth);
 
   const {
     control,
@@ -59,7 +62,7 @@ export const LoginView = ({}: Props) => {
       return;
     } else {
       await LocalAuthentication.authenticateAsync({
-        promptMessage: "Login with Biometrics",
+        promptMessage: `Login with ${supportedAuth.join(" / ")}`,
         disableDeviceFallback: true,
         // promptMessage?: string;
         cancelLabel: "Cancel",
@@ -73,19 +76,24 @@ export const LoginView = ({}: Props) => {
               payload: "Ademola",
             });
             return biometricAuth;
+          } else if (biometricAuth.error === "user_cancel") {
           } else {
+            console.log(biometricAuth);
             Alert.alert(
-              "Biometric/ FaceId",
-              "You cannot use Biometric/ FaceId to sign in! Kindly use the form provided",
+              `${supportedAuth.join(" / ")}`,
+              `You cannot use ${supportedAuth.join(
+                " / "
+              )} to sign in! Kindly use the form provided`,
               [{ text: "OK", onPress: () => {} }]
             );
           }
         })
         .catch((err) => {
-          console.log(err);
           Alert.alert(
-            "Alert Title",
-            "You cannot use Biometric/ FaceId to sign in! Kindly use the form provided",
+            "Error",
+            `You cannot use ${supportedAuth.join(
+              " / "
+            )} to sign in! Kindly use the form provided`,
             [{ text: "OK", onPress: () => {} }]
           );
         });
@@ -96,6 +104,10 @@ export const LoginView = ({}: Props) => {
     (async () => {
       const compatible = await LocalAuthentication.hasHardwareAsync();
       setIsBiometricSupported(compatible);
+      const support =
+        await LocalAuthentication.supportedAuthenticationTypesAsync();
+      const auths: string[] = supportLocalAuth(support);
+      SetSupportedAuth(auths);
     })();
     Alert.alert(
       "Login credential",
